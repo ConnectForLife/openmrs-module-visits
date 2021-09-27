@@ -1,0 +1,202 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+
+#app .overview-visits {
+  .td-cell {
+    text-align: center;
+    margin: auto;
+  }
+
+  .search-section {
+    margin-top: 1rem;
+    background-color: white;
+
+    .visit-search {
+      display: flex;
+      position: relative;
+      flex-wrap: wrap;
+
+      .search-bar {
+        flex-grow: 1;
+        min-width: 250px;
+
+        .search-icon {
+          position: absolute;
+          top: 1em;
+          left: 2em;
+        }
+
+        .search-input {
+          padding: 1.65em 1.65em 1.65em 4em;
+          border-color: #eaeaea !important;
+          font-size: inherit;
+          font-family: CircularStd-Book;
+          font-style: italic;
+          margin: 0;
+        }
+      }
+    }
+
+    .visit-table .helper-text {
+      font-size: 14px;
+      padding: 0 0 0.5rem 2rem;
+    }
+
+    form {
+      overflow: initial;
+    }
+
+    .form-control {
+      outline: none !important;
+      border: 1px solid rgb(206, 212, 218) !important;
+    }
+
+    input {
+      font-family: CircularStd-Book;
+      font-size: 14px;
+      color: #333333;
+
+      &::placeholder {
+        font-size: 14px;
+      }
+    }
+
+    .ReactTable .rt-tr:hover {
+      cursor: pointer;
+    }
+  }
+
+  .DateRangePicker {
+    flex-grow: 1;
+
+    td {
+      background-color: white !important;
+    }
+
+    > div {
+      height: 100%;
+    }
+
+    .DateRangePickerInput {
+      height: 100%;
+      width: 100%;
+      border-radius: 0;
+      border-color: rgba(206, 212, 218, 0.5);
+      padding: 2px;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+      .DateInput {
+        height: 100%;
+        display: inline-flex;
+
+        .DateInput_input {
+          margin-top: 0;
+          outline: none;
+          font-style: italic;
+          font-weight: 400;
+
+          &:focus {
+            outline: none !important;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          }
+        }
+      }
+
+      .DateRangePickerInput_arrow {
+        margin: 0 0.5rem;
+        opacity: 0.5;
+      }
+
+      .DateRangePicker_picker {
+        line-height: normal;
+
+        strong {
+          font-family: CircularStd-Book;
+        }
+
+        .CalendarDay {
+          border: 1px solid #dddddd !important;
+        }
+
+        .CalendarDay:hover:not(.CalendarDay__selected) {
+          background: #e4e7e7 !important;
+        }
+
+        .CalendarDay__selected {
+          background-color: #00455c !important;
+          border-color: #00455c !important;
+        }
+
+        .CalendarDay__selected_span,
+        .CalendarDay__hovered_span:hover,
+        .CalendarDay__hovered_span {
+          background: #e4e7e7 !important;
+          color: #484848 !important;
+        }
+      }
+
+      .DateRangePickerInput_clearDates {
+        margin: 0 5px;
+        line-height: 80%;
+      }
+    }
+
+    .DateRangePickerInput__disabled {
+      .DateRangePickerInput_calendarIcon,
+      .DateInput_input__disabled, 
+      &:hover {
+        cursor: not-allowed;
+      }
+
+      .DateRangePickerInput_calendarIcon {
+        background-color: #f2f2f2;
+        border: none;
+      }
+
+      .DateInput_input__disabled {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .visits-select {
+    flex: 2;
+    min-width: 250px;
+
+    .visits-select__control {
+      height: 100%;
+      border-radius: 0;
+      border-color: rgba(206, 212, 218, 0.5);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+      .visits-select__value-container {
+        overflow: visible;
+        padding: 0 8px;
+        font-family: CircularStd-Book;
+        font-style: italic;
+
+        .visits-select__placeholder {
+          color: #333333;
+          opacity: 0.5;
+          font-size: 14px;
+        }
+      }
+
+      &.visits-select__control--is-focused,
+      &.visits-select__control--menu-is-open {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+      }
+    }
+
+    .visits-select__menu {
+      font-family: CircularStd-Book;
+      font-style: italic;
+    }
+  }
+}

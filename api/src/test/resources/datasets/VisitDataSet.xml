@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <patient_identifier_type
+        patient_identifier_type_id="100"
+        name="Test Identifier Type"
+        description="Test description"
+        creator="1"
+        date_created="2019-11-16 15:57:09.0"
+        required="true"
+        retired="false"
+        uuid="9768c389-6c3a-47c0-9d8b-3c9e42793da3"/>
+
+    <person
+        person_id="2512"
+        uuid="42c9cb97-894a-47e6-8321-f0120576a545"
+        gender="M"
+        dead="false"
+        creator="1"
+        date_created="2019-11-16 15:57:09.0"
+        voided="false"/>
+
+    <person_name
+        person_name_id="2512"
+        preferred="true"
+        person_id="2512"
+        given_name="Sick"
+        middle_name=""
+        family_name="Person"
+        creator="1"
+        date_created="2019-11-16 15:57:09.0"
+        voided="false"/>
+
+    <patient
+        patient_id="2512"
+        creator="1"
+        date_created="2019-11-16 15:57:09.0"
+        voided="false"/>
+
+    <patient_identifier
+        patient_identifier_id="2512"
+        patient_id="2512"
+        identifier="no-unique-identifier"
+        identifier_type="100"
+        preferred="1"
+        location_id="1"
+        creator="1"
+        date_created="2019-11-16 15:57:09.0"
+        voided="false"/>
+
+    <patient_identifier
+        patient_identifier_id="2513"
+        patient_id="2512"
+        identifier="no-unique-identifier2"
+        identifier_type="100"
+        preferred="0"
+        location_id="1"
+        creator="1"
+        date_created="2019-11-16 15:57:09.0"
+        voided="false"/>
+
+    <visit_type
+        visit_type_id="777"
+        name="Follow-up"
+        creator="1"
+        date_created="2010-11-16 15:57:09.0"
+        retired="0"
+        retire_reason=""
+        uuid="16f280e0-3e91-48b4-acb2-c29c30595b45"/>
+
+    <visit
+        visit_id="553"
+        date_started="2010-11-16 16:00:00"
+        creator="1"
+        date_created="2010-11-16 15:57:09.0"
+        visit_type_id="777"
+        patient_id="2512"
+        voided="false"
+        void_reason=""
+        location_id="1"
+        uuid="16f280e0-3e91-48b4-acb2-c29c30595b45"/>
+
+    <visit
+        visit_id="554"
+        date_started="2010-11-16 16:00:00"
+        creator="1"
+        date_created="2010-11-16 15:57:09.0"
+        visit_type_id="777"
+        patient_id="2512"
+        voided="false"
+        void_reason=""
+        uuid="c558c650-acfc-4e35-9245-ab203074ce42"/>
+</dataset>

@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <!-- Types -->
+    <relationship_type
+            relationship_type_id="100"
+            a_is_to_b="Patient"
+            b_is_to_a="Caregiver"
+            preferred="1"
+            weight="0"
+            description="Relationship between Patient and Caregiver."
+            creator="1"
+            date_created="2019-11-20 00:00:00.0"
+            retired="false"/>
+
+    <patient_identifier_type
+            patient_identifier_type_id="100"
+            name="Test Identifier Type"
+            description="Test description"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            required="true"
+            retired="false"
+            uuid="9768c389-6c3a-47c0-9d8b-3c9e42793da3"/>
+
+    <!-- Caregiver -->
+    <person
+            person_id="100"
+            gender="M"
+            dead="false"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <person_name
+            person_name_id="100"
+            preferred="true"
+            person_id="100"
+            given_name="Care"
+            middle_name="Dont"
+            family_name="Giver"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <!-- Patient #1 -->
+    <person
+            person_id="101"
+            uuid="42c9cb97-894a-47e6-8321-f0120576a545"
+            gender="M"
+            dead="false"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <person_name
+            person_name_id="101"
+            preferred="true"
+            person_id="101"
+            given_name="Sick"
+            middle_name=""
+            family_name="Person"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <patient
+            patient_id="101"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <patient_identifier
+            patient_identifier_id="101"
+            patient_id="101"
+            identifier="ABC123ABC123"
+            identifier_type="100"
+            preferred="1"
+            location_id="1"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <!-- Patient #2 -->
+    <person
+            person_id="102"
+            uuid="007037a0-0500-11e3-8ffd-0800200c9a66"
+            gender="M"
+            dead="false"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <person_name
+            person_name_id="102"
+            preferred="true"
+            person_id="102"
+            given_name="Another"
+            middle_name="Sick"
+            family_name="Person"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <patient
+            patient_id="102"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <patient_identifier
+            patient_identifier_id="102"
+            patient_id="102"
+            identifier="BBC123ABC123"
+            identifier_type="100"
+            preferred="1"
+            location_id="1"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <!-- Patient #3 -->
+    <person
+            person_id="103"
+            uuid="9bed23d0-0502-11e3-8ffd-0800200c9a66"
+            gender="M"
+            dead="false"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <person_name
+            person_name_id="103"
+            preferred="true"
+            person_id="103"
+            given_name="Second"
+            middle_name="Sick"
+            family_name="Person"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <patient
+            patient_id="103"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <patient_identifier
+            patient_identifier_id="103"
+            patient_id="103"
+            identifier="CCC123ABC123"
+            identifier_type="100"
+            preferred="1"
+            location_id="1"
+            creator="1"
+            date_created="2019-11-16 15:57:09.0"
+            voided="false"/>
+
+    <!-- Relations: caregiver and patients -->
+    <relationship
+            relationship_id="101"
+            person_a="101"
+            relationship="100"
+            person_b="100"
+            creator="1"
+            date_created="2019-11-20 00:00:00.0"
+            voided="false"/>
+
+    <relationship
+            relationship_id="102"
+            person_a="102"
+            relationship="100"
+            person_b="100"
+            creator="1"
+            date_created="2019-11-20 00:00:00.0"
+            voided="false"/>
+
+    <relationship
+            relationship_id="103"
+            person_a="103"
+            relationship="100"
+            person_b="100"
+            creator="1"
+            date_created="2019-11-20 00:00:00.0"
+            voided="false"/>
+</dataset>

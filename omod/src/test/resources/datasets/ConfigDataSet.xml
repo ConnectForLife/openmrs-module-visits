@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <global_property
+            property="visits.visit-form-uris"
+            property_value='
+            {
+                "default":{
+                    "create":"/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&amp;visitId={{visitId}}&amp;definitionUiResource=cfl:htmlforms/cfl-visit-note.xml",
+                    "edit":"/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{patientId}}&amp;encounterId={{encounterId}}"
+                }
+            }'
+            uuid="03b40777-4c60-483d-8df1-489d22fb6e37"/>
+</dataset>

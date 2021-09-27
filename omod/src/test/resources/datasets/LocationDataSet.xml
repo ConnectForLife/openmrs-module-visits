@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <location location_id="1001" name="Test Parent Location" parent_location="[NULL]" description="test description"
+              creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+              uuid="f08ba64b-ea57-4a41-b33c-9dfc59b0c60a"/>
+    <location location_id="1002" name="Test Level A Child Location 1" parent_location="1001" creator="1"
+              address1="no. 45" city_village="bangalore" county_district="Benagalure" state_province="Karnataka"
+              country="India" postal_code="560034" latitude="100.8" longitude="420.0"
+              date_created="2005-01-01 00:00:00.0" retired="false" uuid="c9ae3a36-7466-4a56-8f06-3bfbc64103f4"/>
+    <location location_id="1003" name="Test Level A Child Location 2" parent_location="1001" creator="1"
+              date_created="2005-01-01 00:00:00.0" retired="true" retire_reason="useless location" uuid="6f42abbc-caac-40ae-a94e-9277ea15c125"/>
+
+    <location location_id="1004" name="Test Location 2" parent_location="[NULL]" description="test description"
+              creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+              uuid="3defd5b4-0010-4055-93c8-10419ad1320e"/>
+    <location location_id="1005" name="Test Location 3" parent_location="[NULL]" description="test description"
+              creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+              uuid="8f0d693f-6cdd-48a2-87ce-cbaab8ced06f"/>
+    <location location_id="1006" name="Test Location 4" parent_location="[NULL]" description="test description"
+              creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+              uuid="b1d987ed-6874-4384-9c03-a1175a1234b1"/>
+
+    <location_tag location_tag_id="1" name="General Hospital" description="test desc" creator="1"
+                  date_created="2005-01-01 00:00:00.0" retired="false" uuid="001e503a-47ed-11df-bc8b-001e378eb67e"/>
+    <location_tag location_tag_id="2" name="Gastroenteritis infection scandal of 1993" creator="1"
+                  date_created="2005-01-01 00:00:00.0" retired="false" uuid="0940c6d4-47ed-11df-bc8b-001e378eb67e"/>
+    <location_tag location_tag_id="3" name="Department" creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+                  description="random department" uuid="0d0eaea2-47ed-11df-bc8b-001e378eb67e"/>
+    <location_tag location_tag_id="4" name="Everyone gets this one" creator="1" date_created="2005-01-01 00:00:00.0"
+                  retired="false" uuid="11a11086-47ed-11df-bc8b-001e378eb67e"/>
+    <location_tag location_tag_id="5" name="Test Retired Tag" creator="1" date_created="2005-01-01 00:00:00.0"
+                  retired="true" retired_by="1" retire_reason="for the lulz"
+                  uuid="156029fa-47ed-11df-bc8b-001e378eb67e"/>
+    <location_tag location_tag_id="6" name="Nobody got this tag" creator="1" date_created="2005-01-01 00:00:00.0"
+                  retired="false" uuid="356029fa-47ed-11df-bc8b-001e378eb67e"/>
+
+    <location_tag_map location_id="1001" location_tag_id="1"/>
+    <location_tag_map location_id="1001" location_tag_id="2"/>
+    <location_tag_map location_id="1001" location_tag_id="4"/>
+    <location_tag_map location_id="1002" location_tag_id="3"/>
+    <location_tag_map location_id="1002" location_tag_id="4"/>
+    <location_tag_map location_id="1003" location_tag_id="3"/>
+    <location_tag_map location_id="1003" location_tag_id="4"/>
+</dataset>

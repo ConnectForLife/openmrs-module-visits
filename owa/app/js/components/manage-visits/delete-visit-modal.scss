@@ -1,0 +1,34 @@
+#delete-visit-modal {
+  display: flex !important;
+
+  .modal-dialog {
+    margin: auto;
+    transition: none;
+
+    .modal-body {
+      padding: 15px 30px;
+
+      .button.confirm.right, .button.confirm.right:hover {
+        background-image: none;
+        background-color: #00455C;
+        border-color: #00455C;
+      }
+
+      .button.cancel, .button.cancel:hover {
+        background-image: none;
+        background-color: white;
+        border-color: #00455C;
+        color: #00455C;
+      }
+
+      .modal-title {
+        font-size: 18px;
+        padding-bottom: 20px;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

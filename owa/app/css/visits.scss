@@ -1,0 +1,141 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+
+#app {
+  header {
+    font-size: 16px;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .navbar-toggler-icon {
+    font-size: 20px;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    content: "";
+    background: no-repeat center center;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+
+  .btn-success {
+    color: #fff;
+    background: #28a745;
+    border-color: #28a745;
+  }
+
+  h2 {
+    color: #333333 !important;
+    font-size: 22px !important;
+    font-weight: inherit !important;
+    margin: 0 !important;
+  }
+
+  .manage-visits .ReactTable,
+  .overview-visits .ReactTable {
+    border: none;
+
+    .rt-thead.-header {
+      pointer-events: none;
+      box-shadow: none;
+
+      .rt-tr {
+        text-transform: uppercase;
+        color: #212529;
+        font-weight: 400;
+        background-color: white !important;
+      }
+    }
+
+    .rt-tr-group {
+      border: 0;
+
+      .rt-tr:hover {
+        background-color: rgba(0, 0, 0, 0.15) !important;
+      }
+
+      .rt-tr.-odd {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.15) !important;
+        }
+      }
+    }
+
+    .rt-th,
+    .rt-td {
+      padding: 0.2rem;
+      border: 0;
+      white-space: break-spaces;
+      word-break: break-word;
+      font-size: 12px;
+      font-weight: normal;
+      text-align: center;
+      margin: auto;
+
+      @media only screen and (min-width: 768px) {
+        font-size: 14px;
+        padding: 0.5rem;
+      }
+
+      @media only screen and (min-width: 1280px) {
+        font-size: 16px;
+        padding: 0.75rem;
+      }
+    }
+
+    .pagination-bottom .-pagination div {
+      background: none;
+
+      button {
+        max-width: 100%;
+        cursor: pointer;
+        border-radius: 0;
+        background: none;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        span {
+          color: #212529;
+        }
+      }
+
+      select {
+        color: #212529;
+      }
+    }
+  }
+
+  .helper-text {
+    font-family: CircularStd-Book;
+    font-size: 16px;
+    font-weight: inherit;
+    color: #333333;
+    opacity: 0.5;
+  }
+
+  .patient-header {
+    margin: 0 !important;
+  }
+
+  form {
+    label {
+      font-weight: inherit;
+    }
+
+    input:focus {
+      background: transparent;
+    }
+  }
+}

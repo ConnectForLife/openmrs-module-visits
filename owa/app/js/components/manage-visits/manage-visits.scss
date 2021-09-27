@@ -1,0 +1,70 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+
+.manage-visits {
+  margin-top: 20px;
+
+  .visit-header-section {
+    display: flex;
+    padding: 20px;
+    overflow: hidden;
+    background-color: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+
+    .header-left-section {
+      float: left;
+      width: 50%;
+
+      label {
+        margin: 0;
+      }
+    }
+
+    .header-right-section {
+      float: right;
+      width: 50%;
+
+      .schedule-button {
+        float: right;
+
+        button {
+          background: none !important;
+          background-color: #00455C !important;
+
+          &:active {
+            background-color: inherit;
+          }
+        }
+      }
+    }
+  }
+
+  .form-group {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+
+    .ReactTable .action-column {
+      max-width: 30;
+      text-align: center;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+  
+      .action-button {
+        padding: 5px;
+  
+        a, i {
+          cursor: pointer;
+          color: inherit;
+        }
+      }
+    }
+  }
+}
