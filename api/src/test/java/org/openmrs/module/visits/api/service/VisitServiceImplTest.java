@@ -23,6 +23,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -97,7 +99,7 @@ public class VisitServiceImplTest extends ContextMockedTest {
         when(Context.getAuthenticatedUser()).thenReturn(new User(1));
 
         visitService.changeStatusForMissedVisits();
-        verify(dao, times(1)).saveOrUpdate(any(Visit.class));
+        verify(getMissedVisitService()).changeVisitStatusToMissed(anyInt(), anyListOf(String.class));
     }
 
     @Test

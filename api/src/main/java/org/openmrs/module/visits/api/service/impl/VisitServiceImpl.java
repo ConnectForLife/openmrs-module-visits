@@ -16,11 +16,12 @@ import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
-import org.openmrs.module.visits.api.decorator.VisitDecorator;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.visits.api.dto.VisitDTO;
 import org.openmrs.module.visits.api.exception.ValidationException;
 import org.openmrs.module.visits.api.mapper.VisitMapper;
 import org.openmrs.module.visits.api.service.ConfigService;
+import org.openmrs.module.visits.api.service.MissedVisitService;
 import org.openmrs.module.visits.api.service.VisitService;
 import org.openmrs.module.visits.domain.PagingInfo;
 import org.openmrs.module.visits.domain.criteria.OverviewCriteria;
@@ -28,6 +29,7 @@ import org.openmrs.module.visits.domain.criteria.VisitCriteria;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Implements methods for creating, reading, updating and deleting Visit entities
@@ -35,6 +37,8 @@ import java.util.List;
 public class VisitServiceImpl extends BaseOpenmrsDataService<Visit> implements VisitService {
 
     private static final Log LOGGER = LogFactory.getLog(VisitServiceImpl.class);
+
+    private static final String MISSED_VISIT_SERVICE_BEAN_NAME = "visits.missedVisitService";
 
     private PatientService patientService;
 
@@ -76,23 +80,22 @@ public class VisitServiceImpl extends BaseOpenmrsDataService<Visit> implements V
 
     @Override
     public void changeStatusForMissedVisits() {
-        String missedVisitStatus = configService.getStatusOfMissedVisit();
-        List<Visit> missedVisits = findAllByCriteria(VisitCriteria.forMissedVisits(
-                configService.getMinimumVisitDelayToMarkItAsMissed(),
-                missedVisitStatus,
-                configService.getStatusesEndingVisit()));
+        List<String> statusesEndingVisit = configService.getStatusesEndingVisit();
 
-        LOGGER.info(String.format("Changing status of %d visits to %s", missedVisits.size(), missedVisitStatus));
-        for (Visit visit : missedVisits) {
-            VisitDecorator visitDecorator = new VisitDecorator(visit);
-            if (LOGGER.isTraceEnabled()) {
-                LOGGER.trace(String.format("Changing status of the visit %d from %s to %s",
-                        visitDecorator.getId(), visitDecorator.getStatus(), missedVisitStatus));
-            }
-            visitDecorator.setStatus(missedVisitStatus);
-            visitDecorator.setChanged();
-            saveOrUpdate(visitDecorator.getObject());
-        }
+        List<String> eligibleStatusesToMarkVisitAsMissed = configService.getVisitStatuses()
+                .stream()
+                .filter(status -> !statusesEndingVisit.contains(status))
+                .collect(Collectors.toList());
+
+        List<Integer> missedVisitsIds = findAllByCriteria(VisitCriteria.forMissedVisits(
+                configService.getMinimumVisitDelayToMarkItAsMissed(),
+                configService.getStatusOfMissedVisit(),
+                statusesEndingVisit)).stream().map(Visit::getVisitId).collect(Collectors.toList());
+
+        MissedVisitService missedVisitService = Context.getRegisteredComponent(MISSED_VISIT_SERVICE_BEAN_NAME,
+                MissedVisitService.class);
+        missedVisitsIds.forEach(visitId -> missedVisitService
+                .changeVisitStatusToMissed(visitId, eligibleStatusesToMarkVisitAsMissed));
     }
 
     public void setVisitMapper(VisitMapper visitMapper) {

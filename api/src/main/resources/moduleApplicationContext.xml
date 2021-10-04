@@ -81,4 +81,13 @@
     <bean id="visits.configService" class="org.openmrs.module.visits.api.service.impl.ConfigServiceImpl"/>
 
     <bean id="customEncounterValidator" class="org.openmrs.module.visits.api.validator.EncounterValidator" />
+
+    <bean id="visits.missedVisitService" class="org.openmrs.module.visits.api.service.impl.MissedVisitServiceImpl" >
+        <property name="visitService">
+            <ref bean="visitService"/>
+        </property>
+        <property name="configService">
+            <ref local="visits.configService"/>
+        </property>
+    </bean>
 </beans>

@@ -11,6 +11,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.context.Daemon;
 import org.openmrs.module.visits.api.mapper.VisitMapper;
 import org.openmrs.module.visits.api.service.ConfigService;
+import org.openmrs.module.visits.api.service.MissedVisitService;
 import org.openmrs.scheduler.SchedulerService;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -43,6 +44,9 @@ public abstract class ContextMockedTest extends BaseTest {
     @Mock
     private SchedulerService schedulerService;
 
+    @Mock
+    private MissedVisitService missedVisitService;
+
     @Before
     public void setUp() {
         mockStatic(Context.class);
@@ -54,6 +58,9 @@ public abstract class ContextMockedTest extends BaseTest {
         when(Context.getVisitService()).thenReturn(visitService);
         when(Context.getLocationService()).thenReturn(locationService);
         when(Context.getSchedulerService()).thenReturn(schedulerService);
+        when(Context.getRegisteredComponent("visits.missedVisitService", MissedVisitService.class))
+                .thenReturn(missedVisitService);
+
     }
 
     public AdministrationService getAdministrationService() {
@@ -82,5 +89,9 @@ public abstract class ContextMockedTest extends BaseTest {
 
     public SchedulerService getSchedulerService() {
         return schedulerService;
+    }
+
+    public MissedVisitService getMissedVisitService() {
+        return missedVisitService;
     }
 }
