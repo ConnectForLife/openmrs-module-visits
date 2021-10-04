@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Visit;
 import org.openmrs.api.VisitService;
+import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.visits.api.decorator.VisitDecorator;
 import org.openmrs.module.visits.api.service.ConfigService;
 import org.openmrs.module.visits.api.service.MissedVisitService;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-public class MissedVisitServiceImpl implements MissedVisitService {
+public class MissedVisitServiceImpl extends BaseOpenmrsService implements MissedVisitService {
 
     private static final Log LOGGER = LogFactory.getLog(MissedVisitServiceImpl.class);
 
@@ -25,7 +26,9 @@ public class MissedVisitServiceImpl implements MissedVisitService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void changeVisitStatusToMissed(Integer visitId, List<String> statusesToMarkVisitAsMissed) {
         Visit visit = visitService.getVisit(visitId);
-        if (visit != null) {
+        if (visit == null) {
+            throw new EntityNotFoundException(String.format("Visit with id %d not found", visitId));
+        } else {
             VisitDecorator visitDecorator = new VisitDecorator(visit);
             if (statusesToMarkVisitAsMissed.contains(visitDecorator.getStatus())) {
                 String missedVisitStatus = configService.getStatusOfMissedVisit();
@@ -35,8 +38,6 @@ public class MissedVisitServiceImpl implements MissedVisitService {
                 visitDecorator.setChanged();
                 visitService.saveVisit(visitDecorator.getObject());
             }
-        } else {
-            throw new EntityNotFoundException(String.format("Visit with id %d not found", visitId));
         }
     }
 

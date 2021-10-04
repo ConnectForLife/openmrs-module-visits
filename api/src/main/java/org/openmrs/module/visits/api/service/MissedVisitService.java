@@ -3,7 +3,7 @@ package org.openmrs.module.visits.api.service;
 import java.util.List;
 
 /**
- *
+ * Provides methods related to MissedVisitChanger job functionalities
  */
 public interface MissedVisitService {
 

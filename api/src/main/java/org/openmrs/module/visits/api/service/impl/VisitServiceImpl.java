@@ -38,8 +38,6 @@ public class VisitServiceImpl extends BaseOpenmrsDataService<Visit> implements V
 
     private static final Log LOGGER = LogFactory.getLog(VisitServiceImpl.class);
 
-    private static final String MISSED_VISIT_SERVICE_BEAN_NAME = "visits.missedVisitService";
-
     private PatientService patientService;
 
     private LocationService locationService;
@@ -92,8 +90,7 @@ public class VisitServiceImpl extends BaseOpenmrsDataService<Visit> implements V
                 configService.getStatusOfMissedVisit(),
                 statusesEndingVisit)).stream().map(Visit::getVisitId).collect(Collectors.toList());
 
-        MissedVisitService missedVisitService = Context.getRegisteredComponent(MISSED_VISIT_SERVICE_BEAN_NAME,
-                MissedVisitService.class);
+        MissedVisitService missedVisitService = Context.getService(MissedVisitService.class);
         missedVisitsIds.forEach(visitId -> missedVisitService
                 .changeVisitStatusToMissed(visitId, eligibleStatusesToMarkVisitAsMissed));
     }

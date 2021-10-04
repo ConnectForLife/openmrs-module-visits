@@ -90,4 +90,12 @@
             <ref local="visits.configService"/>
         </property>
     </bean>
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list merge="true">
+                <value>org.openmrs.module.visits.api.service.MissedVisitService</value>
+                <ref local="visits.missedVisitService"/>
+            </list>
+        </property>
+    </bean>
 </beans>
