@@ -58,9 +58,7 @@ public abstract class ContextMockedTest extends BaseTest {
         when(Context.getVisitService()).thenReturn(visitService);
         when(Context.getLocationService()).thenReturn(locationService);
         when(Context.getSchedulerService()).thenReturn(schedulerService);
-        when(Context.getRegisteredComponent("visits.missedVisitService", MissedVisitService.class))
-                .thenReturn(missedVisitService);
-
+        when(Context.getService(MissedVisitService.class)).thenReturn(missedVisitService);
     }
 
     public AdministrationService getAdministrationService() {
