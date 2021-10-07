@@ -36,6 +36,7 @@ public class JobSchedulerServiceImpl extends BaseOpenmrsService implements JobSc
             newTask.setLastExecutionTime(DateUtil.now());
             executeJob(jobDefinition);
         }
+
         if (previousTask == null) {
             scheduleTask(newTask);
         } else {
@@ -50,12 +51,11 @@ public class JobSchedulerServiceImpl extends BaseOpenmrsService implements JobSc
     }
 
     @Override
-    public void createNewTask(JobDefinition jobDefinition, Date startTime,
-                              JobRepeatInterval repeatInterval) {
+    public void createNewTask(JobDefinition jobDefinition, Date startTime, JobRepeatInterval repeatInterval) {
         TaskDefinition previousTask = schedulerService.getTaskByName(jobDefinition.getTaskName());
         if (previousTask != null) {
-            throw new VisitsRuntimeException(String.format("A task with name %s has been " +
-                "already scheduled", jobDefinition.getTaskName()));
+            throw new VisitsRuntimeException(
+                    String.format("A task with name %s has been " + "already scheduled", jobDefinition.getTaskName()));
         }
 
         TaskDefinition newTask = prepareTask(jobDefinition, null, startTime, repeatInterval.getSeconds());
@@ -63,12 +63,8 @@ public class JobSchedulerServiceImpl extends BaseOpenmrsService implements JobSc
     }
 
     private void executeJob(JobDefinition jobDefinition) {
-        Daemon.runInDaemonThread(new Runnable() {
-            @Override
-            public void run() {
-                jobDefinition.execute();
-            }
-        }, daemonToken);
+        LOGGER.info("Executing Job before scheduling: " + jobDefinition.getTaskName());
+        Daemon.runInDaemonThread(jobDefinition::execute, daemonToken);
     }
 
     private void scheduleTask(TaskDefinition task) {
@@ -85,24 +81,32 @@ public class JobSchedulerServiceImpl extends BaseOpenmrsService implements JobSc
     }
 
     private boolean shouldBeExecuted(TaskDefinition task, JobDefinition jobDefinition) {
-        if (isPrimaryTaskCreation(task)) {
-            return jobDefinition.shouldStartAtFirstCreation();
+        final boolean executeNow;
+
+        if (DateUtil.now().after(task.getStartTime())) {
+            if (isPrimaryTaskCreation(task)) {
+                executeNow = jobDefinition.shouldStartAtFirstCreation();
+            } else {
+                executeNow = task.getLastExecutionTime().before(DateUtil.getDateSecondsAgo(task.getRepeatInterval()));
+            }
         } else {
-            return task.getLastExecutionTime().before(DateUtil.getDateSecondsAgo(task.getRepeatInterval()));
+            executeNow = false;
         }
+
+        return executeNow;
     }
 
     private TaskDefinition prepareTask(JobDefinition jobDefinition, TaskDefinition previousTask, long repeatInterval) {
         if (previousTask == null) {
             return prepareTask(jobDefinition, null, DateUtil.now(), repeatInterval);
         } else {
-            return prepareTask(jobDefinition, previousTask.getLastExecutionTime(),
-                    previousTask.getStartTime(), repeatInterval);
+            return prepareTask(jobDefinition, previousTask.getLastExecutionTime(), previousTask.getStartTime(),
+                    repeatInterval);
         }
     }
 
-    private TaskDefinition prepareTask(JobDefinition jobDefinition, Date lastExecutionTime,
-                                       Date startTime, long repeatInterval) {
+    private TaskDefinition prepareTask(JobDefinition jobDefinition, Date lastExecutionTime, Date startTime,
+                                       long repeatInterval) {
         TaskDefinition task = new TaskDefinition();
         task.setName(jobDefinition.getTaskName());
         task.setLastExecutionTime(lastExecutionTime);
