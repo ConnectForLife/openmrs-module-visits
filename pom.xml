@@ -36,7 +36,6 @@
         <coreappsVersion>1.21.0</coreappsVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
         <emrapiVersion>1.28.0</emrapiVersion>
-        <apacheHttpClientVersion>4.4.1</apacheHttpClientVersion>
         <openmrsPlatformVersion>2.0.1</openmrsPlatformVersion>
         <javaCompilerSource>1.8</javaCompilerSource>
         <javaCompilerTarget>1.8</javaCompilerTarget>
@@ -71,11 +70,6 @@
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${javax.servlet.version}</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${apacheHttpClientVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.openmrs.module</groupId>
