@@ -55,7 +55,7 @@
         <serializationXstream>0.2.12</serializationXstream>
         <providermanagementVersion>2.9.0</providermanagementVersion>
         <javaxXmlBindVersion>2.3.0</javaxXmlBindVersion>
-        <htmlformentryVersion>3.10.0</htmlformentryVersion>
+        <htmlformentryVersion>3.12.0</htmlformentryVersion>
         <htmlformentryuiVersion>1.10.0</htmlformentryuiVersion>
     </properties>
 

@@ -19,4 +19,9 @@
 
     <bean id="TestStandardRegimenTagHandlerSupport"
           class="org.openmrs.module.htmlformentry.handler.StandardRegimenTagHandlerSupport1_6" />
+
+    <!-- Workaround for missing support for DrugOrderTagHandler in 2.* -->
+    <bean id="testOnlyDrugOrderTagHandlerSupport" class="org.mockito.Mockito" factory-method="mock" primary="true">
+        <constructor-arg value="org.openmrs.module.htmlformentry.handler.DrugOrderTagHandlerSupport"/>
+    </bean>
 </beans>
