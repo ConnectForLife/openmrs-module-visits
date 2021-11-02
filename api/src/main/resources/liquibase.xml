@@ -34,4 +34,30 @@
             <where>property='visits.visit-form-uris'</where>
         </delete>
     </changeSet>
+
+    <changeSet id="cfl-visits-3" author="Dawid Ruchniewicz">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="global_property"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM global_property WHERE property = 'visits.isMissedVisitChangerShouldBeCreated'
+            </sqlCheck>
+        </preConditions>
+        <comment>Adds visits.isMissedVisitChangerShouldBeCreated global property </comment>
+        <sql><![CDATA[
+            INSERT INTO global_property (
+                        property,
+                        property_value,
+                        description,
+                        uuid)
+            VALUES (    'visits.isMissedVisitChangerShouldBeCreated',
+                        'false',
+                        'Used to determine if Missed Visits Status Changer task should be created during module startup.
+                        Changes will be applied the next time the module is restarted. If task already exists
+                        and GP value is false it will not remove task during next server restart - it has to be removed
+                        manually. Possible values: true, false',
+                        uuid()
+            );
+        ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>

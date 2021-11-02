@@ -19,6 +19,10 @@ public final class VisitsConstants {
     public static final String CREATE_URI_NAME = "create";
     public static final String EDIT_URI_NAME = "edit";
 
+    public static final String VISIT_CONFIG_SERVICE_BEAN_NAME = "visits.configService";
+
+    public static final String MISSED_VISIT_CHANGER_CREATION_GP_KEY =  "visits.isMissedVisitChangerShouldBeCreated";
+
     private VisitsConstants() {
     }
 }
