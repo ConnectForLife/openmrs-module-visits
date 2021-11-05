@@ -1,5 +1,6 @@
 package org.openmrs.module.visits.api.service.impl;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,7 +10,6 @@ import org.openmrs.module.visits.api.service.ConfigService;
 import org.openmrs.module.visits.api.util.GPDefinition;
 import org.openmrs.module.visits.api.util.GlobalPropertiesConstants;
 import org.openmrs.module.visits.api.util.GlobalPropertyUtil;
-import org.openmrs.module.visits.api.util.VisitsConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class ConfigServiceImpl implements ConfigService {
   private static final Log LOGGER = LogFactory.getLog(ConfigServiceImpl.class);
 
   private static final String COMMA_DELIMITER = ",";
-  private static final int ONE = 1;
+  private static final int MINIMUM_DAYS_NUMBER_OF_VISIT_DELAY = 1;
 
   @Override
   public List<String> getVisitTimes() {
@@ -37,7 +37,7 @@ public class ConfigServiceImpl implements ConfigService {
     List<String> statuses =
         GlobalPropertyUtil.parseList(
             getGp(GlobalPropertiesConstants.VISIT_STATUSES), COMMA_DELIMITER);
-    if (statuses.size() < 1) {
+    if (CollectionUtils.isEmpty(statuses)) {
       LOGGER.warn("Visit statuses are not defined as a global property.");
     }
 
@@ -48,13 +48,13 @@ public class ConfigServiceImpl implements ConfigService {
   public int getMinimumVisitDelayToMarkItAsMissed() {
     GPDefinition gpDefinition = GlobalPropertiesConstants.MINIMUM_VISIT_DELAY_TO_MARK_IT_AS_MISSED;
     int days = GlobalPropertyUtil.parseInt(gpDefinition.getKey(), getGp(gpDefinition));
-    if (days < ONE) {
+    if (days < MINIMUM_DAYS_NUMBER_OF_VISIT_DELAY) {
       LOGGER.warn(
           String.format(
               "The GP minimumVisitDelayToMarkItAsMissed could not be below 1 "
                   + "(the current value: %d). The value 1 will be used",
               days));
-      days = ONE;
+      days = MINIMUM_DAYS_NUMBER_OF_VISIT_DELAY;
     }
     return days;
   }
@@ -118,7 +118,7 @@ public class ConfigServiceImpl implements ConfigService {
 
   @Override
   public boolean isMissedVisitChangerJobShouldBeCreated() {
-    String gpValue = getGp(VisitsConstants.MISSED_VISIT_CHANGER_CREATION_GP_KEY);
+    String gpValue = getGp(GlobalPropertiesConstants.MISSED_VISIT_CHANGER_CREATION_GP_KEY);
     return GlobalPropertyUtil.parseBool(gpValue);
   }
 

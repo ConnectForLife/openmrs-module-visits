@@ -5,6 +5,7 @@
  * http://openmrs.org/license. Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the
  * OpenMRS graphic logo is a trademark of OpenMRS Inc.
  */
+
 package org.openmrs.module.visits;
 
 import org.apache.commons.logging.Log;
@@ -141,7 +142,7 @@ public class VisitsActivator extends BaseModuleActivator implements DaemonTokenA
     if (getConfigService().isMissedVisitChangerJobShouldBeCreated()) {
       getSchedulerService()
           .rescheduleOrCreateNewTask(
-              new MissedVisitsStatusChangerJobDefinition(), JobRepeatInterval.HOURLY);
+              new MissedVisitsStatusChangerJobDefinition(), JobRepeatInterval.DAILY);
     }
   }
 

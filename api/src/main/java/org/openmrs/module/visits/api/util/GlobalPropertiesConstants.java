@@ -78,5 +78,8 @@ public final class GlobalPropertiesConstants {
               + "is overridden. Possible values: true, false",
           true);
 
-  private GlobalPropertiesConstants() {}
+  public static final String MISSED_VISIT_CHANGER_CREATION_GP_KEY =  "visits.isMissedVisitChangerShouldBeCreated";
+
+  private GlobalPropertiesConstants() {
+  }
 }
