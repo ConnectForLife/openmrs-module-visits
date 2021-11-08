@@ -86,9 +86,6 @@
         <property name="visitService">
             <ref bean="visitService"/>
         </property>
-        <property name="configService">
-            <ref local="visits.configService"/>
-        </property>
     </bean>
     <bean parent="serviceContext">
         <property name="moduleService">

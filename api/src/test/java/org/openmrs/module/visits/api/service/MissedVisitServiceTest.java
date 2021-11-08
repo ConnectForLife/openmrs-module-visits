@@ -16,11 +16,13 @@ import org.openmrs.module.visits.api.service.impl.MissedVisitServiceImpl;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -29,53 +31,65 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 @PrepareForTest({Context.class})
 public class MissedVisitServiceTest {
 
-    private static final String SCHEDULED_VISIT_STATUS = "SCHEDULED";
+  private static final String SCHEDULED_VISIT_STATUS = "SCHEDULED";
 
-    private static final String MISSED_VISIT_STATUS = "MISSED";
+  private static final String MISSED_VISIT_STATUS = "MISSED";
 
-    @InjectMocks
-    private MissedVisitService missedVisitService = new MissedVisitServiceImpl();
+  @InjectMocks private MissedVisitService missedVisitService = new MissedVisitServiceImpl();
 
-    @Mock
-    private VisitService visitService;
+  @Mock private VisitService visitService;
 
-    @Mock
-    private ConfigService configService;
+  @Before
+  public void setUp() {
+    mockStatic(Context.class);
+    when(Context.getVisitService()).thenReturn(visitService);
+  }
 
-    private Visit visit;
+  @Test
+  public void changeVisitStatusesToMissed_whenAllVisitsExist() {
+    when(visitService.getVisit(1)).thenReturn(buildTestVisit(1));
+    when(visitService.getVisit(2)).thenReturn(buildTestVisit(2));
+    when(visitService.getVisit(3)).thenReturn(buildTestVisit(3));
 
-    @Before
-    public void setUp() {
-        mockStatic(Context.class);
-        when(Context.getVisitService()).thenReturn(visitService);
-        when(Context.getRegisteredComponent("visits.configService", ConfigService.class))
-                .thenReturn(configService);
+    List<String> eligibleStatusesListToMarkVisitAsMissed =
+        Arrays.asList(SCHEDULED_VISIT_STATUS, MISSED_VISIT_STATUS);
 
-        visit = buildTestVisit();
-    }
+    missedVisitService.changeVisitStatusesToMissed(
+        Arrays.asList(1, 2, 3),
+        eligibleStatusesListToMarkVisitAsMissed,
+        MISSED_VISIT_STATUS,
+        any(VisitAttributeType.class));
 
-    @Test
-    public void shouldChangeStatusVisitToMissed() {
-        when(visitService.getVisit(anyInt())).thenReturn(visit);
-        when(configService.getStatusOfMissedVisit()).thenReturn(MISSED_VISIT_STATUS);
+    verify(visitService, times(3)).getVisit(anyInt());
+    verify(visitService, times(3)).saveVisit(any(Visit.class));
+  }
 
-        List<String> eligibleStatusesListToMarkVisitAsMissed = Arrays.asList(SCHEDULED_VISIT_STATUS, MISSED_VISIT_STATUS);
+  @Test(expected = EntityNotFoundException.class)
+  public void changeVisitStatusesToMissed_whenOneOfTheVisitsNotExist() {
+    when(visitService.getVisit(1)).thenReturn(buildTestVisit(1));
+    when(visitService.getVisit(2)).thenReturn(null);
+    when(visitService.getVisit(3)).thenReturn(buildTestVisit(3));
 
-        missedVisitService.changeVisitStatusToMissed(anyInt(), eligibleStatusesListToMarkVisitAsMissed);
+    List<String> eligibleStatusesListToMarkVisitAsMissed =
+        Arrays.asList(SCHEDULED_VISIT_STATUS, MISSED_VISIT_STATUS);
 
-        verify(visitService).getVisit(anyInt());
-        verify(visitService).saveVisit(any(Visit.class));
-        verify(configService).getStatusOfMissedVisit();
-    }
+    missedVisitService.changeVisitStatusesToMissed(
+        Arrays.asList(1, 2, 3),
+        eligibleStatusesListToMarkVisitAsMissed,
+        MISSED_VISIT_STATUS,
+        any(VisitAttributeType.class));
+  }
 
-    private Visit buildTestVisit() {
-        Visit visit = new Visit();
+  private Visit buildTestVisit(Integer visitId) {
+    Visit visit = new Visit();
 
-        visit.setVisitId(1);
-        VisitAttributeType visitStatusType = VisitAttributeTypeHelper
-                .createVisitAttributeType("Visit Status", "70ca70ac-53fd-49e4-9abe-663d4785fe62");
-        VisitAttribute statusAttribute = VisitAttributeHelper.createVisitAttribute(visitStatusType, SCHEDULED_VISIT_STATUS);
-        visit.setAttribute(statusAttribute);
-        return visit;
-    }
+    visit.setVisitId(visitId);
+    VisitAttributeType visitStatusType =
+        VisitAttributeTypeHelper.createVisitAttributeType(
+            "Visit Status", "70ca70ac-53fd-49e4-9abe-663d4785fe62");
+    VisitAttribute statusAttribute =
+        VisitAttributeHelper.createVisitAttribute(visitStatusType, SCHEDULED_VISIT_STATUS);
+    visit.setAttribute(statusAttribute);
+    return visit;
+  }
 }
