@@ -24,18 +24,26 @@ public class MissedVisitServiceImpl extends BaseOpenmrsService implements Missed
       String missedVisitStatus,
       VisitAttributeType visitStatusAttributeType) {
     visitIds.forEach(
-        id -> {
-          Visit visit = visitService.getVisit(id);
-          if (visit == null) {
-            throw new EntityNotFoundException(String.format("Visit with id %d not found", id));
-          }
-          VisitDecorator visitDecorator = new VisitDecorator(visit);
-          if (statusesToMarkVisitAsMissed.contains(visitDecorator.getStatus())) {
-            visitDecorator.setVisitStatus(visitStatusAttributeType, missedVisitStatus);
-            visitDecorator.setChanged();
-            visitService.saveVisit(visitDecorator.getObject());
-          }
-        });
+        id ->
+            changeVisitStatus(
+                id, statusesToMarkVisitAsMissed, missedVisitStatus, visitStatusAttributeType));
+  }
+
+  private void changeVisitStatus(
+      Integer visitId,
+      List<String> statusesToMarkVisitAsMissed,
+      String missedVisitStatus,
+      VisitAttributeType visitStatusAttributeType) {
+    Visit visit = visitService.getVisit(visitId);
+    if (visit == null) {
+      throw new EntityNotFoundException(String.format("Visit with id %d not found", visitId));
+    }
+    VisitDecorator visitDecorator = new VisitDecorator(visit);
+    if (statusesToMarkVisitAsMissed.contains(visitDecorator.getStatus())) {
+      visitDecorator.setVisitStatus(visitStatusAttributeType, missedVisitStatus);
+      visitDecorator.setChanged();
+      visitService.saveVisit(visitDecorator.getObject());
+    }
   }
 
   public void setVisitService(VisitService visitService) {
