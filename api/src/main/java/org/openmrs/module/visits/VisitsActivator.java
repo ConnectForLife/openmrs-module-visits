@@ -5,7 +5,6 @@
  * http://openmrs.org/license. Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the
  * OpenMRS graphic logo is a trademark of OpenMRS Inc.
  */
-
 package org.openmrs.module.visits;
 
 import org.apache.commons.logging.Log;
@@ -83,7 +82,8 @@ public class VisitsActivator extends BaseModuleActivator implements DaemonTokenA
             GlobalPropertiesConstants.VISIT_STATUSES,
             GlobalPropertiesConstants.PAST_VISITS_LIMIT,
             GlobalPropertiesConstants.UPCOMING_VISITS_LIMIT,
-            GlobalPropertiesConstants.ENCOUNTER_DATETIME_VALIDATION));
+            GlobalPropertiesConstants.ENCOUNTER_DATETIME_VALIDATION,
+            GlobalPropertiesConstants.MISSED_VISIT_CHANGER_CREATION_GP));
   }
 
   private void createMissedVisitStatusChangerConfig() {

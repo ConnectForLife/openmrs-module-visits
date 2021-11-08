@@ -118,7 +118,7 @@ public class ConfigServiceImpl implements ConfigService {
 
   @Override
   public boolean isMissedVisitChangerJobShouldBeCreated() {
-    String gpValue = getGp(GlobalPropertiesConstants.MISSED_VISIT_CHANGER_CREATION_GP_KEY);
+    String gpValue = getGp(GlobalPropertiesConstants.MISSED_VISIT_CHANGER_CREATION_GP.getKey());
     return GlobalPropertyUtil.parseBool(gpValue);
   }
 

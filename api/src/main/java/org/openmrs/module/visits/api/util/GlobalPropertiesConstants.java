@@ -78,8 +78,14 @@ public final class GlobalPropertiesConstants {
               + "is overridden. Possible values: true, false",
           true);
 
-  public static final String MISSED_VISIT_CHANGER_CREATION_GP_KEY =  "visits.isMissedVisitChangerShouldBeCreated";
+  public static final GPDefinition MISSED_VISIT_CHANGER_CREATION_GP =
+      new GPDefinition(
+          "visits.isMissedVisitChangerShouldBeCreated",
+          "false",
+          "Used to determine if Missed Visits Status Changer task should be created during module startup. "
+              + "Changes will be applied the next time the module is restarted. If task already exists "
+              + "and GP value is false it will not remove task during next server restart - it has to be "
+              + "removed manually. Possible values: true, false");
 
-  private GlobalPropertiesConstants() {
-  }
+  private GlobalPropertiesConstants() {}
 }
