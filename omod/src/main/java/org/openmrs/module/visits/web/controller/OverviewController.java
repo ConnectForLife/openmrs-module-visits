@@ -1,5 +1,11 @@
 package org.openmrs.module.visits.web.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import java.net.HttpURLConnection;
 import org.openmrs.Visit;
 import org.openmrs.module.visits.api.dto.OverviewDTO;
 import org.openmrs.module.visits.dto.PageDTO;
@@ -21,6 +27,10 @@ import java.util.List;
 /**
  * Exposes the endpoints related to Visit Overview
  */
+@Api(
+    value = "Visit Overview",
+    tags = {"REST API for visit overview"}
+)
 @Controller
 @RequestMapping("/visits/overview")
 public class OverviewController extends BaseRestController {
@@ -48,15 +58,44 @@ public class OverviewController extends BaseRestController {
      *
      * @return a page containing visit overview details
      */
+    @ApiOperation(
+        value = "Get visits for location",
+        notes = "Get visits for location",
+        response = OverviewDTO.class
+    )
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_OK,
+                message = "visits for location retrieved"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                message = "Visits for location not retrieved"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_NOT_FOUND,
+                message = "Location not found"
+            )
+        }
+    )
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
     @ResponseBody
-    public PageDTO<OverviewDTO> getVisitsForLocation(@PathVariable("uuid") String locationUuid,
-                                                     PageableParams pageableParams,
-                                                     @RequestParam(required = false) String query,
-                                                     @RequestParam(required = false) String visitStatus,
-                                                     @RequestParam(required = false) Long dateFrom,
-                                                     @RequestParam(required = false) Long dateTo,
-                                                     @RequestParam(required = false) String timePeriod) {
+    public PageDTO<OverviewDTO> getVisitsForLocation(
+        @ApiParam(name = "uuid", value = "uuid", required = true)
+        @PathVariable("uuid") String locationUuid,
+        PageableParams pageableParams,
+        @ApiParam(name = "query", value = "query")
+        @RequestParam(required = false) String query,
+        @ApiParam(name = "visitStatus", value = "visitStatus")
+        @RequestParam(required = false) String visitStatus,
+        @ApiParam(name = "dateFrom", value = "dateFrom")
+        @RequestParam(required = false) Long dateFrom,
+        @ApiParam(name = "dateTo", value = "dateTo")
+        @RequestParam(required = false) Long dateTo,
+        @ApiParam(name = "timePeriod", value = "timePeriod")
+        @RequestParam(required = false) String timePeriod) {
+
         PagingInfo pagingInfo = pageableParams.getPagingInfo();
         List<Visit> visits = visitService.getVisitsForLocation(locationUuid, pagingInfo, query, visitStatus,
                 dateFrom, dateTo, timePeriod);

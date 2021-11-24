@@ -1,5 +1,11 @@
 package org.openmrs.module.visits.web.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import java.net.HttpURLConnection;
 import org.openmrs.Visit;
 import org.openmrs.module.visits.dto.PageDTO;
 import org.openmrs.module.visits.api.dto.VisitDTO;
@@ -25,6 +31,9 @@ import java.util.List;
 /**
  * Exposes the endpoints related to managing the visits
  */
+@Api(
+    value = "Visit Details",
+    tags = {"REST API for managing Visit information(create,update and get details)"})
 @Controller
 @RequestMapping("/visits")
 public class VisitController extends BaseRestController {
@@ -46,6 +55,21 @@ public class VisitController extends BaseRestController {
      *
      * @return list of string values of visit times
      */
+    @ApiOperation(
+        value = "Get visit times",
+        notes = "Get visit times",
+        response = List.class
+    )
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_OK,
+                message = "On successful retrieval of visit times"),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                message = "Failure to get visit times")
+        }
+    )
     @RequestMapping(value = "/times", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getVisitTimes() {
@@ -57,6 +81,21 @@ public class VisitController extends BaseRestController {
      *
      * @return list of string values of visit times
      */
+    @ApiOperation(
+        value = "Get visit statuses",
+        notes = "Get visit statuses",
+        response = List.class
+    )
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_OK,
+                message = "On successful retrieval of visit statuses"),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                message = "Failure to retrieve visit statuses")
+        }
+    )
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getVisitStatuses() {
@@ -70,10 +109,32 @@ public class VisitController extends BaseRestController {
      * @param pageableParams parameters representing expected page shape
      * @return a page containing visit details
      */
+    @ApiOperation(
+        value = "Get visit details of a patient",
+        notes = "Get visit details of a patient",
+        response = VisitDetailsDTO.class
+    )
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_OK,
+                message = "Successful retrieval of visit details of a patient"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_BAD_REQUEST,
+                message = "Patient with the given uuid not found"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                message = "Failure to retrieve patient visits"
+            )
+        }
+    )
     @RequestMapping(value = "/patient/{uuid}", method = RequestMethod.GET)
     @ResponseBody
-    public PageDTO<VisitDetailsDTO> getVisitsForPatient(@PathVariable("uuid") String patientUuid,
-                                                            PageableParams pageableParams) {
+    public PageDTO<VisitDetailsDTO> getVisitsForPatient(
+        @ApiParam(name = "uuid", value="uuid", required = true )
+        @PathVariable("uuid") String patientUuid, PageableParams pageableParams) {
         PagingInfo pagingInfo = pageableParams.getPagingInfo();
         List<Visit> visits = visitService.getVisitsForPatient(patientUuid, pagingInfo);
         return new PageDTO<>(visitMapper.toDtosWithDetails(visits), pagingInfo);
@@ -85,9 +146,33 @@ public class VisitController extends BaseRestController {
      * @param visitUuid uuid representing the visit
      * @param visit DTO object containing the visit details
      */
+    @ApiOperation(
+        value = "Update details of a visit",
+        notes = "Update details of a visit"
+    )
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_OK,
+                message = "Visit details successfully updated"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_BAD_REQUEST,
+                message = "Error in visit details to be updated"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                message = "Visit details not updated"
+            )
+        }
+    )
     @RequestMapping(value = "/{uuid}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void updateVisit(@PathVariable("uuid") String visitUuid, @RequestBody VisitDTO visit) {
+    public void updateVisit(
+        @ApiParam(name = "uuid", value = "uuid", required = true)
+        @PathVariable("uuid") String visitUuid,
+        @ApiParam(name = "visit", value = "visit", required = true)
+        @RequestBody VisitDTO visit) {
         visitService.updateVisit(visitUuid, visit);
     }
 
@@ -96,9 +181,31 @@ public class VisitController extends BaseRestController {
      *
      * @param visitDTO DTO object containing the visit data, must not contain uuid nor status
      */
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @ApiOperation(
+        value = "Create a new visit",
+        notes = "Create a new visit"
+    )
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_OK,
+                message = "Visit created successfully"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_BAD_REQUEST,
+                message = "Error in visit details"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                message = "Visit not created"
+            )
+        }
+    )
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void createVisit(@RequestBody VisitDTO visitDTO) {
+    public void createVisit(
+        @ApiParam(name = "visitDTO", value = "Visit Dto", required = true)
+        @RequestBody VisitDTO visitDTO) {
         if (visitDTO.getUuid() != null) {
             throw new IllegalArgumentException("New visit cannot already have a uuid");
         }
@@ -116,9 +223,32 @@ public class VisitController extends BaseRestController {
      * @param visitUuid uuid of the visit
      * @return a DTO object containing the single visit details
      */
+    @ApiOperation(
+        value = "Get visit with uuid",
+        notes = "Get visit with uuid",
+        response = VisitDetailsDTO.class
+    )
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_OK,
+                message = "Visit details fetched"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_BAD_REQUEST,
+                message = "Visit not found"
+            ),
+            @ApiResponse(
+                code = HttpURLConnection.HTTP_INTERNAL_ERROR,
+                message = "Error in fetching visit details"
+            )
+        }
+    )
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
     @ResponseBody
-    public VisitDetailsDTO getVisit(@PathVariable("uuid") String visitUuid) {
+    public VisitDetailsDTO getVisit(
+        @ApiParam(name = "uuid", value = "uuid", required = true)
+        @PathVariable("uuid") String visitUuid) {
         Visit visit = visitService.getByUuid(visitUuid);
         if (visit == null) {
             throw new IllegalArgumentException(String.format("Visit with the uuid (%s) doesn't exits", visitUuid));

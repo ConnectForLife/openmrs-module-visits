@@ -43,5 +43,17 @@
 
     <require_version>${openmrsPlatformVersion}</require_version>
 
+    <!-- Extensions -->
+    <extension>
+        <point>org.openmrs.admin.list</point>
+        <class>org.openmrs.module.visits.extension.html.AdminList</class>
+    </extension>
+    <!-- Internationalization -->
+    <!-- All message codes should start with @MODULE_ID@.* -->
+    <messages>
+        <lang>en</lang>
+        <file>messages.properties</file>
+    </messages>
+
 </module>
 

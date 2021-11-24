@@ -1,0 +1,360 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "REST API for Visits Module.",
+    "version" : "v1",
+    "title" : "Visits Module REST API"
+  },
+  "basePath" : "/openmrs/ws",
+  "tags" : [ {
+    "name" : "REST API for managing Visit information(create,update and get details)"
+  }, {
+    "name" : "REST API for visit overview"
+  } ],
+  "paths" : {
+    "/visits/create" : {
+      "post" : {
+        "tags" : [ "REST API for managing Visit information(create,update and get details)" ],
+        "summary" : "Create a new visit",
+        "description" : "Create a new visit",
+        "operationId" : "createVisit",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "visitDTO",
+          "description" : "Visit Dto",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/VisitDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Visit created successfully"
+          },
+          "400" : {
+            "description" : "Error in visit details"
+          },
+          "500" : {
+            "description" : "Visit not created"
+          }
+        }
+      }
+    },
+    "/visits/overview/{uuid}" : {
+      "get" : {
+        "tags" : [ "REST API for visit overview" ],
+        "summary" : "Get visits for location",
+        "description" : "Get visits for location",
+        "operationId" : "getVisitsForLocation",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "description" : "uuid",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "description" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "visitStatus",
+          "in" : "query",
+          "description" : "visitStatus",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "dateFrom",
+          "in" : "query",
+          "description" : "dateFrom",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "dateTo",
+          "in" : "query",
+          "description" : "dateTo",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "timePeriod",
+          "in" : "query",
+          "description" : "timePeriod",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "visits for location retrieved",
+            "schema" : {
+              "$ref" : "#/definitions/OverviewDTO"
+            }
+          },
+          "404" : {
+            "description" : "Location not found"
+          },
+          "500" : {
+            "description" : "Visits for location not retrieved"
+          }
+        }
+      }
+    },
+    "/visits/patient/{uuid}" : {
+      "get" : {
+        "tags" : [ "REST API for managing Visit information(create,update and get details)" ],
+        "summary" : "Get visit details of a patient",
+        "description" : "Get visit details of a patient",
+        "operationId" : "getVisitsForPatient",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "description" : "uuid",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful retrieval of visit details of a patient",
+            "schema" : {
+              "$ref" : "#/definitions/VisitDetailsDTO"
+            }
+          },
+          "400" : {
+            "description" : "Patient with the given uuid not found"
+          },
+          "500" : {
+            "description" : "Failure to retrieve patient visits"
+          }
+        }
+      }
+    },
+    "/visits/statuses" : {
+      "get" : {
+        "tags" : [ "REST API for managing Visit information(create,update and get details)" ],
+        "summary" : "Get visit statuses",
+        "description" : "Get visit statuses",
+        "operationId" : "getVisitStatuses",
+        "responses" : {
+          "200" : {
+            "description" : "On successful retrieval of visit statuses",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Failure to retrieve visit statuses"
+          }
+        }
+      }
+    },
+    "/visits/times" : {
+      "get" : {
+        "tags" : [ "REST API for managing Visit information(create,update and get details)" ],
+        "summary" : "Get visit times",
+        "description" : "Get visit times",
+        "operationId" : "getVisitTimes",
+        "responses" : {
+          "200" : {
+            "description" : "On successful retrieval of visit times",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Failure to get visit times"
+          }
+        }
+      }
+    },
+    "/visits/{uuid}" : {
+      "get" : {
+        "tags" : [ "REST API for managing Visit information(create,update and get details)" ],
+        "summary" : "Get visit with uuid",
+        "description" : "Get visit with uuid",
+        "operationId" : "getVisit",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "description" : "uuid",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Visit details fetched",
+            "schema" : {
+              "$ref" : "#/definitions/VisitDetailsDTO"
+            }
+          },
+          "400" : {
+            "description" : "Visit not found"
+          },
+          "500" : {
+            "description" : "Error in fetching visit details"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "REST API for managing Visit information(create,update and get details)" ],
+        "summary" : "Update details of a visit",
+        "description" : "Update details of a visit",
+        "operationId" : "updateVisit",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "description" : "uuid",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "visit",
+          "description" : "visit",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/VisitDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Visit details successfully updated"
+          },
+          "400" : {
+            "description" : "Error in visit details to be updated"
+          },
+          "500" : {
+            "description" : "Visit details not updated"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "NameUrlDTO" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "url" : {
+          "type" : "string"
+        }
+      }
+    },
+    "OverviewDTO" : {
+      "type" : "object",
+      "properties" : {
+        "uuid" : {
+          "type" : "string"
+        },
+        "patientIdentifier" : {
+          "type" : "string"
+        },
+        "nameUrl" : {
+          "$ref" : "#/definitions/NameUrlDTO"
+        },
+        "startDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "time" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "string"
+        },
+        "actualDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
+    },
+    "VisitDTO" : {
+      "type" : "object",
+      "properties" : {
+        "uuid" : {
+          "type" : "string"
+        },
+        "startDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "time" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        },
+        "formUri" : {
+          "type" : "string"
+        },
+        "actualDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "patientUuid" : {
+          "type" : "string"
+        }
+      }
+    },
+    "VisitDetailsDTO" : {
+      "type" : "object",
+      "properties" : {
+        "uuid" : {
+          "type" : "string"
+        },
+        "startDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "time" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        },
+        "formUri" : {
+          "type" : "string"
+        },
+        "actualDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "patientUuid" : {
+          "type" : "string"
+        },
+        "locationName" : {
+          "type" : "string"
+        },
+        "typeName" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

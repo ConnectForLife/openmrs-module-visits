@@ -9,7 +9,7 @@
 
     <groupId>org.openmrs.module</groupId>
     <artifactId>visits</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Visits Module</name>
     <description>
@@ -57,6 +57,7 @@
         <javaxXmlBindVersion>2.3.0</javaxXmlBindVersion>
         <htmlformentryVersion>3.12.0</htmlformentryVersion>
         <htmlformentryuiVersion>1.10.0</htmlformentryuiVersion>
+        <legacyUiVersion>1.6.0</legacyUiVersion>
     </properties>
 
     <dependencyManagement>
@@ -166,6 +167,33 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${javax.servlet.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Swagger dependencies-->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-core</artifactId>
+                <scope>provided</scope>
+                <version>1.6.2</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.ws.rs</groupId>
+                        <artifactId>jsr311-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.openmrs.module</groupId>
+                <artifactId>legacyui-omod</artifactId>
+                <version>${legacyUiVersion}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>

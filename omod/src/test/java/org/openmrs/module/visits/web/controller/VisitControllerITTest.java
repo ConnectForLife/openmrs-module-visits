@@ -200,7 +200,7 @@ public class VisitControllerITTest extends BaseModuleWebContextSensitiveWithActi
             .setType(visit.getVisitType().getUuid());
         VisitDetailsDTO visitDetailsDTO = new VisitDetailsDTO(visitDTO, LOCATION_NAME, visit.getVisitType().getName());
 
-        mockMvc.perform(post("/visits")
+        mockMvc.perform(post("/visits/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(visitDetailsDTO)))
                 .andExpect(status().is(HttpStatus.OK.value()));
@@ -217,7 +217,7 @@ public class VisitControllerITTest extends BaseModuleWebContextSensitiveWithActi
             .setType(visit.getVisitType().getUuid());
         VisitDetailsDTO visitDetailsDTO = new VisitDetailsDTO(visitDTO, LOCATION_NAME, visit.getVisitType().getName());
 
-        mockMvc.perform(post("/visits")
+        mockMvc.perform(post("/visits/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(visitDetailsDTO)))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
