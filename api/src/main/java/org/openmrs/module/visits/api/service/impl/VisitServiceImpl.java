@@ -9,8 +9,6 @@
 
 package org.openmrs.module.visits.api.service.impl;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.Visit;
@@ -35,8 +33,6 @@ import java.util.stream.Collectors;
 
 /** Implements methods for creating, reading, updating and deleting Visit entities */
 public class VisitServiceImpl extends BaseOpenmrsDataService<Visit> implements VisitService {
-
-  private static final Log LOGGER = LogFactory.getLog(VisitServiceImpl.class);
 
   private static final Integer BATCH_SIZE = 25;
 
@@ -65,18 +61,13 @@ public class VisitServiceImpl extends BaseOpenmrsDataService<Visit> implements V
 
   @Override
   public void createVisit(VisitDTO visitDTO) {
-    try {
-      VisitDTO clone = (VisitDTO) visitDTO.clone();
-      clone.setStatus(configService.getVisitInitialStatus());
-      if (clone.getStartDate() == null) {
-        clone.setStartDate(new Date());
-      }
-
-      saveOrUpdate(visitMapper.fromDto(clone));
-    } catch (CloneNotSupportedException e) {
-      LOGGER.error(e);
-      throw new IllegalArgumentException("Unable to clone passed visit", e);
+    VisitDTO clone = new VisitDTO(visitDTO);
+    clone.setStatus(configService.getVisitInitialStatus());
+    if (clone.getStartDate() == null) {
+      clone.setStartDate(new Date());
     }
+
+    saveOrUpdate(visitMapper.fromDto(clone));
   }
 
   @Override
