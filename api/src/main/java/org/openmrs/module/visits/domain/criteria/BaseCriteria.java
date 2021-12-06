@@ -6,7 +6,7 @@ import org.hibernate.criterion.Restrictions;
 
 public abstract class BaseCriteria implements Serializable {
 
-    private static final long serialVersionUID = 3288835048263351202L;
+    private static final long serialVersionUID = 6L;
 
     private boolean includeVoided;
 
@@ -14,7 +14,7 @@ public abstract class BaseCriteria implements Serializable {
 
     public void initHibernateCriteria(Criteria hibernateCriteria) {
         if (!includeVoided) {
-            hibernateCriteria.add(Restrictions.eq("voided", false));
+            hibernateCriteria.add(Restrictions.eq("voided", Boolean.FALSE));
         }
     }
 }

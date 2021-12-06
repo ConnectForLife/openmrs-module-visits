@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class OverviewDTO implements Serializable {
 
-    private static final long serialVersionUID = 4539000117834015411L;
+    private static final long serialVersionUID = 7L;
 
     private String uuid;
     private String patientIdentifier;
@@ -48,11 +48,15 @@ public class OverviewDTO implements Serializable {
     }
 
     public Date getStartDate() {
-        return startDate;
+        if (null != startDate) {
+            return new Date(startDate.getTime());
+        } else {
+            return null;
+        }
     }
 
     public OverviewDTO setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.startDate = startDate != null ? new Date(startDate.getTime()) : null;
         return this;
     }
 
@@ -93,11 +97,15 @@ public class OverviewDTO implements Serializable {
     }
 
     public Date getActualDate() {
-        return actualDate;
+        if (null != actualDate) {
+            return new Date(actualDate.getTime());
+        } else {
+            return null;
+        }
     }
 
     public OverviewDTO setActualDate(Date actualDate) {
-        this.actualDate = actualDate;
+        this.actualDate = actualDate != null ? new Date(actualDate.getTime()) : null;
         return this;
     }
 }

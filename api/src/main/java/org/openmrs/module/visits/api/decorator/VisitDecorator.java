@@ -71,7 +71,7 @@ public class VisitDecorator extends ObjectDecorator<Visit> {
   }
 
   public Date getActualDate() {
-    if (getObject().getEncounters() == null || getObject().getEncounters().size() == 0) {
+    if (getObject().getEncounters() == null || getObject().getEncounters().isEmpty()) {
       return null;
     }
 
@@ -84,7 +84,7 @@ public class VisitDecorator extends ObjectDecorator<Visit> {
     if (actualDate == null) {
       return;
     }
-    if (getObject().getEncounters() == null || getObject().getEncounters().size() == 0) {
+    if (getObject().getEncounters() == null || getObject().getEncounters().isEmpty()) {
       throw new IllegalStateException(
           "Unable to set actual date (encounter date). No encounters related to visit.");
     }
@@ -123,7 +123,7 @@ public class VisitDecorator extends ObjectDecorator<Visit> {
 
   private void voidAllAttributesWithType(String typeUuid) {
     for (VisitAttribute attribute : getAttributesOfType(typeUuid)) {
-      attribute.setVoided(true);
+      attribute.setVoided(Boolean.TRUE);
     }
   }
 

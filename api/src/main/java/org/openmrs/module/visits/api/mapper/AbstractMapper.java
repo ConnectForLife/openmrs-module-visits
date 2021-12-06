@@ -7,7 +7,7 @@ import org.openmrs.BaseOpenmrsData;
 public abstract class AbstractMapper<T, R extends BaseOpenmrsData> implements Mapper<T, R> {
 
     public List<T> toDtos(List<R> daos) {
-        List<T> dtos = new ArrayList<T>();
+        List<T> dtos = new ArrayList<>(daos.size());
         for (R dao : daos) {
             dtos.add(toDto(dao));
         }
@@ -15,7 +15,7 @@ public abstract class AbstractMapper<T, R extends BaseOpenmrsData> implements Ma
     }
 
     public List<R> fromDtos(List<T> dtos) {
-        List<R> daos = new ArrayList<R>();
+        List<R> daos = new ArrayList<>(dtos.size());
         for (T dto : dtos) {
             daos.add(fromDto(dto));
         }

@@ -15,12 +15,7 @@ public final class ComparatorsHelper {
      * @return an ascending start date comparator
      */
     public static Comparator<VisitDomainWrapper> getVisitsComparatorByStartDateAsc() {
-        return new Comparator<VisitDomainWrapper>() {
-            @Override
-            public int compare(VisitDomainWrapper v1, VisitDomainWrapper v2) {
-                return v1.getStartDate().compareTo(v2.getStartDate());
-            }
-        };
+      return Comparator.comparing(VisitDomainWrapper::getStartDate);
     }
 
     /**
@@ -29,12 +24,7 @@ public final class ComparatorsHelper {
      * @return a descending start date comparator
      */
     public static Comparator<VisitDomainWrapper> getVisitsComparatorByStartDateDesc() {
-        return new Comparator<VisitDomainWrapper>() {
-            @Override
-            public int compare(VisitDomainWrapper v1, VisitDomainWrapper v2) {
-                return (-1) * v1.getStartDate().compareTo(v2.getStartDate());
-            }
-        };
+       return (v1, v2) -> (-1) * v1.getStartDate().compareTo(v2.getStartDate());
     }
 
     private ComparatorsHelper() { }

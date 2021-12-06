@@ -107,7 +107,7 @@ public class VisitEnterHtmlFormFragmentController extends EnterHtmlFormFragmentC
             ex.printStackTrace(new PrintWriter(sw));
             validationErrors.add(new FormSubmissionError("general-form-error", "Form submission error " + ex
                     .getMessage() +
-                    "<br/>" + sw.toString()));
+                    "<br/>" + sw));
             return returnHelper(validationErrors, fes, null);
         }
 
@@ -180,7 +180,7 @@ public class VisitEnterHtmlFormFragmentController extends EnterHtmlFormFragmentC
                 afterSaveUrl = afterSaveUrl.replaceAll("\\{\\{encounter.id\\}\\}",
                         session.getEncounter().getId().toString());
             }
-            return SimpleObject.create("success", true, "encounterId", encounter == null ? null : encounter.getId(),
+            return SimpleObject.create("success", Boolean.TRUE, "encounterId", encounter == null ? null : encounter.getId(),
                     "goToUrl", afterSaveUrl);
         } else {
             Map<String, String> errors = new HashMap<String, String>();
@@ -191,7 +191,7 @@ public class VisitEnterHtmlFormFragmentController extends EnterHtmlFormFragmentC
                     errors.put(err.getId(), err.getError());
                 }
             }
-            return SimpleObject.create("success", false, "errors", errors);
+            return SimpleObject.create("success", Boolean.FALSE, "errors", errors);
         }
     }
 

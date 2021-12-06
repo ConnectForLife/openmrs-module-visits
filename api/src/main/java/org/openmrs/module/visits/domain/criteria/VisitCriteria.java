@@ -19,7 +19,7 @@ import java.util.List;
 
 public class VisitCriteria extends BaseCriteria implements Serializable {
 
-    private static final long serialVersionUID = -486120008842837370L;
+    private static final long serialVersionUID = 9L;
 
     private Patient patient;
 
@@ -95,7 +95,7 @@ public class VisitCriteria extends BaseCriteria implements Serializable {
         DetachedCriteria subCriteria = DetachedCriteria.forClass(VisitAttribute.class, "va")
                 .createAlias("va.attributeType", "vat")
                 .add(Restrictions.eq("vat.uuid", ConfigConstants.VISIT_STATUS_ATTRIBUTE_TYPE_UUID))
-                .add(Restrictions.eq("va.voided", false))
+                .add(Restrictions.eq("va.voided", Boolean.FALSE))
                 .add(Restrictions.not(Restrictions.in("va.valueReference", statusesForEndedAndMissedVisit)))
                 .setProjection(Projections.projectionList().add(Projections.property("va.visit.visitId")));
 

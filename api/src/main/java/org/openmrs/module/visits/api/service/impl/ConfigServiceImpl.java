@@ -61,7 +61,7 @@ public class ConfigServiceImpl implements ConfigService {
 
   @Override
   public String getVisitInitialStatus() {
-    return getVisitStatuses().size() > 0 ? getVisitStatuses().get(0) : null;
+    return !getVisitStatuses().isEmpty() ? getVisitStatuses().get(0) : null;
   }
 
   @Override

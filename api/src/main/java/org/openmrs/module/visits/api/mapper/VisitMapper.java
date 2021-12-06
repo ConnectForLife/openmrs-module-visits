@@ -84,7 +84,7 @@ public class VisitMapper extends AbstractMapper<VisitDTO, Visit> {
     }
 
     public List<VisitDetailsDTO> toDtosWithDetails(List<Visit> visits) {
-        List<VisitDetailsDTO> dtos = new ArrayList<VisitDetailsDTO>();
+        List<VisitDetailsDTO> dtos = new ArrayList<>(visits.size());
         for (Visit visit : visits) {
             dtos.add(this.toDtoWithDetails(visit));
         }

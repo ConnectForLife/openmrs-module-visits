@@ -122,7 +122,7 @@ public class VisitsSectionFragmentController {
         visitsToDisplay.addAll(getUpcomingVisits(allVisits));
 
         Map<VisitDomainWrapper, Map<String, String>> recentVisitsWithLinks
-                = new LinkedHashMap<VisitDomainWrapper, Map<String, String>>();
+                = new LinkedHashMap<>(visitsToDisplay.size());
         for (VisitDomainWrapper visit : visitsToDisplay) {
             contextModel.put(VISIT, new VisitContextModel(visit));
             // since the "visit" isn't part of the context module, we bind it first to the visit url,

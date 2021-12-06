@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ErrorResponseDTO implements Serializable {
 
-    private static final long serialVersionUID = -8870048107491805181L;
+    private static final long serialVersionUID = 1L;
 
     private String error;
 

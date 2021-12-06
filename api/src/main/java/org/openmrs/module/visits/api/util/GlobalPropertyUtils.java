@@ -38,7 +38,8 @@ public final class GlobalPropertyUtils {
     }
 
     public static Integer getInteger(String key) {
-        return Integer.parseInt(getGlobalProperty(key));
+        String keyValue = getGlobalProperty(key);
+        return Integer.valueOf(keyValue);
     }
 
     private GlobalPropertyUtils() { }

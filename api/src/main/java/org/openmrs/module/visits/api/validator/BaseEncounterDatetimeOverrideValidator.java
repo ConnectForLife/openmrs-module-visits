@@ -50,7 +50,7 @@ abstract class BaseEncounterDatetimeOverrideValidator implements Validator {
         if (errors instanceof BindException &&
                 ((BindException) errors).getBindingResult() instanceof AbstractBindingResult) {
             final Field errorsPrivateField = ReflectionUtils.findField(AbstractBindingResult.class, "errors");
-            errorsPrivateField.setAccessible(true);
+            ReflectionUtils.makeAccessible(errorsPrivateField);
             final Object errorsPrivateFieldValue =
                     ReflectionUtils.getField(errorsPrivateField, ((BindException) errors).getBindingResult());
 

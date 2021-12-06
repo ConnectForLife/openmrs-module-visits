@@ -58,7 +58,7 @@ public class BaseOpenmrsDataService<T extends BaseOpenmrsData> extends BaseOpenm
 
     @Override
     public List<T> saveOrUpdate(List<T> collection) throws APIException {
-        List<T> result = new ArrayList<T>();
+        List<T> result = new ArrayList<>(collection.size());
         for (T newOrPersisted : collection) {
             result.add(saveOrUpdate(newOrPersisted));
         }

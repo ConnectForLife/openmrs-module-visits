@@ -113,7 +113,7 @@ public class JobSchedulerServiceImpl extends BaseOpenmrsService implements JobSc
         task.setRepeatInterval(repeatInterval);
         task.setTaskClass(jobDefinition.getTaskClass().getName());
         task.setStartTime(startTime);
-        task.setStartOnStartup(false);
+        task.setStartOnStartup(Boolean.FALSE);
         task.setProperties(jobDefinition.getProperties());
         return task;
     }

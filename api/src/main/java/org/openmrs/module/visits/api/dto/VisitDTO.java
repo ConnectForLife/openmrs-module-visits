@@ -9,7 +9,7 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VisitDTO implements Serializable {
 
-  private static final long serialVersionUID = -6043667045678304408L;
+  private static final long serialVersionUID = 3L;
 
   private String uuid;
   private Date startDate;
@@ -48,13 +48,13 @@ public class VisitDTO implements Serializable {
       Date actualDate,
       String patientUuid) {
     this.uuid = uuid;
-    this.startDate = startDate;
+    this.startDate = (startDate != null ? new Date(startDate.getTime()) : null );
     this.time = time;
     this.location = location;
     this.type = type;
     this.status = status;
     this.formUri = formUri;
-    this.actualDate = actualDate;
+    this.actualDate = (actualDate != null ? new Date(actualDate.getTime()) : null);
     this.patientUuid = patientUuid;
   }
 
@@ -81,11 +81,11 @@ public class VisitDTO implements Serializable {
   }
 
   public Date getStartDate() {
-    return startDate;
+    return startDate != null ? new Date(startDate.getTime()) : null;
   }
 
   public VisitDTO setStartDate(Date startDate) {
-    this.startDate = startDate;
+    this.startDate = startDate != null ? new Date(startDate.getTime()) : null;
     return this;
   }
 
@@ -135,11 +135,11 @@ public class VisitDTO implements Serializable {
   }
 
   public Date getActualDate() {
-    return actualDate;
+    return actualDate != null ? new Date(actualDate.getTime()) : null;
   }
 
   public VisitDTO setActualDate(Date actualDate) {
-    this.actualDate = actualDate;
+    this.actualDate = actualDate != null ? new Date(actualDate.getTime()) : null;
     return this;
   }
 

@@ -35,7 +35,6 @@ public class AdminList extends AdministrationSectionExt {
   public Map<String, String> getLinks() {
 
     Map<String, String> map = new HashMap<>();
-    //map.put("module/biometrics/biometric.form", "biometric.title");
     map.put("/ms/uiframework/resource/visits/swagger/index.html", "Visits module REST API");
     return map;
   }

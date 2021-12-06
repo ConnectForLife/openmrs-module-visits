@@ -28,7 +28,7 @@ import java.util.List;
 @Handler(supports = {Encounter.class}, order = 100)
 public class EncounterValidator extends BaseEncounterDatetimeOverrideValidator {
 
-    private static final Log LOGGER = LogFactory.getLog(org.openmrs.validator.EncounterValidator.class);
+    private static final Log LOGGER = LogFactory.getLog(EncounterValidator.class);
 
     private static final String ENCOUNTER_DATETIME_FIELD = "encounterDatetime";
 

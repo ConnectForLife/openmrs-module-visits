@@ -24,7 +24,7 @@ import java.util.List;
 
 public class OverviewCriteria extends BaseCriteria implements Serializable {
 
-    private static final long serialVersionUID = -486120008842837370L;
+    private static final long serialVersionUID = 8L;
 
     private static final String PATH_SEPARATOR = ".";
     private static final String PATIENT_PATH = "patient";
@@ -130,7 +130,7 @@ public class OverviewCriteria extends BaseCriteria implements Serializable {
                 .add(Restrictions.eq(ATTRIBUTE_TYPE + PATH_SEPARATOR + NAME,
                         VISIT_STATUS_ATTRIBUTE_TYPE_NAME))
                 .add(Restrictions.eq(VALUE_REFERENCE_PROPERTY, visitStatus))
-                .add(Restrictions.eq(VOIDED_PROPERTY, false));
+                .add(Restrictions.eq(VOIDED_PROPERTY, Boolean.FALSE));
     }
 
     private void addVisitsTimePeriodCriteria(Criteria criteria) {
@@ -174,7 +174,7 @@ public class OverviewCriteria extends BaseCriteria implements Serializable {
     private Criterion getNameCriteria() {
         QuerySplitter splitter = new QuerySplitter(query);
         String[] queries = splitter.splitQuery();
-        List<Criterion> criteria = new ArrayList<>();
+        List<Criterion> criteria = new ArrayList<>(queries.length);
         for (String q : queries) {
             criteria.add(getNameCriterion(q));
         }
@@ -184,7 +184,7 @@ public class OverviewCriteria extends BaseCriteria implements Serializable {
 
     private Criterion getNameCriterion(String query) {
         return Restrictions.and(
-                Restrictions.eq(NAMES_PREFERRED_PATH, true),
+                Restrictions.eq(NAMES_PREFERRED_PATH, Boolean.TRUE),
                 Restrictions.or(
                         Restrictions.ilike(NAMES_GIVEN_NAME_PATH, query, MatchMode.ANYWHERE),
                         Restrictions.ilike(NAMES_MIDDLE_NAME_PATH, query, MatchMode.ANYWHERE),
@@ -193,7 +193,7 @@ public class OverviewCriteria extends BaseCriteria implements Serializable {
 
     private Criterion getIdentifierCriterion() {
         return Restrictions.and(
-                Restrictions.eq(IDENTIFIERS_PREFERRED_PATH, true),
+                Restrictions.eq(IDENTIFIERS_PREFERRED_PATH, Boolean.TRUE),
                 Restrictions.ilike(IDENTIFIERS_IDENTIFIER_PATH, query, MatchMode.ANYWHERE));
     }
 

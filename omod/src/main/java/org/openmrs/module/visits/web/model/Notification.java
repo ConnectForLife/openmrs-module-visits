@@ -5,7 +5,7 @@ package org.openmrs.module.visits.web.model;
  */
 public class Notification extends AbstractDTO {
 
-    private static final long serialVersionUID = 5615857731418557904L;
+    private static final long serialVersionUID = 12L;
 
     /**
      * Indicates the notification type.

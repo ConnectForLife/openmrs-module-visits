@@ -16,7 +16,7 @@ public abstract class BaseOpenmrsDataDao<T extends BaseOpenmrsData> extends Hibe
 
     private DbSessionFactory dbSessionFactory;
 
-    public BaseOpenmrsDataDao(Class<T> mappedClass) {
+    protected BaseOpenmrsDataDao(Class<T> mappedClass) {
         super(mappedClass);
     }
 
@@ -49,7 +49,7 @@ public abstract class BaseOpenmrsDataDao<T extends BaseOpenmrsData> extends Hibe
         if (pagingInfo != null && pagingInfo.getPage() > 0 && pagingInfo.getPageSize() > 0
                 && pagingInfo.shouldLoadRecordCount()) {
             Long count = countRows(criteria);
-            pagingInfo.setTotalRecordCount(count == null ? 0 : count);
+            pagingInfo.setTotalRecordCount(count == null ? Long.valueOf(0) : count);
             pagingInfo.setLoadRecordCount(false);
         }
     }

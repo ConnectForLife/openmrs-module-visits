@@ -37,7 +37,7 @@ public class VisitNoteMetaTagHandler extends SubstitutionTagHandler {
 
     @Override
     protected List<AttributeDescriptor> createAttributeDescriptors() {
-        List<AttributeDescriptor> attributeDescriptors = new ArrayList<AttributeDescriptor>();
+        List<AttributeDescriptor> attributeDescriptors = new ArrayList<>();
         return Collections.unmodifiableList(attributeDescriptors);
     }
 
@@ -59,7 +59,7 @@ public class VisitNoteMetaTagHandler extends SubstitutionTagHandler {
 
         @Override
         public Collection<FormSubmissionError> validateSubmission(FormEntryContext context, HttpServletRequest request) {
-            return null;
+            return Collections.emptyList();
         }
 
         @Override

@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class NameUrlDTO implements Serializable {
 
-    private static final long serialVersionUID = 5388170127582018965L;
+    private static final long serialVersionUID = 2L;
     private String name;
     private String url;
 
