@@ -190,7 +190,7 @@ export const saveVisit = (visit: VisitUI, successCallback?) => async (dispatch) 
   if (_.isEmpty(validated.errors)) {
     const payload = isEdit ?
       axiosInstance.put(`${moduleUrl}/${visit.uuid}`, visit)
-      : axiosInstance.post(moduleUrl, visit);
+      : axiosInstance.post(`${moduleUrl}/create`, visit);
 
     const body = {
       type: ACTION_TYPES.POST_VISIT,
