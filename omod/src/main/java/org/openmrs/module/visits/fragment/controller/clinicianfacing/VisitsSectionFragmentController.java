@@ -226,7 +226,7 @@ public class VisitsSectionFragmentController {
     result.put(
         "visitDateInDisplayFormat",
         DateUtil.convertDateWithLocale(
-            extractedVisit.getStartDatetime(), "dd MMM YYYY", Context.getLocale()));
+            extractedVisit.getStartDatetime(), "dd MMM yyyy", Context.getLocale()));
     result.put("isVisitHasEncounters", CollectionUtils.isNotEmpty(extractedVisit.getEncounters()));
 
     return result;
