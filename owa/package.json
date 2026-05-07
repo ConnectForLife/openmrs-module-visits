@@ -1,6 +1,6 @@
 {
   "name": "visits",
-  "version": "1.5.1-SNAPSHOT",
+  "version": "1.6.1-leprosy-india-0003-4.1",
   "description": "OWA project for Visits Module",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
